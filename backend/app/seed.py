@@ -3,43 +3,66 @@ from __future__ import annotations
 
 from typing import Any
 
+
+def _build_facility_rows() -> list[dict[str, Any]]:
+    """设施台账样例：同一设施名称分布在多条路段，覆盖多类型、多管养单位与全部状态。"""
+    catalog = [
+        ("中央隔离护栏", "护栏类"),
+        ("机非分隔护栏", "护栏类"),
+        ("交通标志牌", "标志类"),
+        ("指路标志牌", "标志类"),
+        ("路灯杆", "照明类"),
+        ("中杆灯", "照明类"),
+        ("雨水篦子", "排水类"),
+        ("排水边沟", "排水类"),
+        ("减速带", "交安类"),
+        ("防撞桶", "交安类"),
+        ("声屏障", "隔音屏障类"),
+    ]
+    sections = [
+        ("中山路", "K0+000~K2+300"),
+        ("解放大道", "K1+200~K4+800"),
+        ("滨江路", "K0+500~K3+100"),
+        ("环城高架", "K6+000~K9+400"),
+        ("人民路", "K2+100~K5+600"),
+        ("建设大街", "K0+000~K1+800"),
+        ("和平路", "K3+400~K6+200"),
+        ("胜利街", "K1+000~K2+900"),
+    ]
+    grades = ["城市主干路", "城市次干路", "城市快速路", "城市支路"]
+    statuses = ["正常运行", "正常运行", "正常运行", "限制通行", "正常运行", "封闭维修", "正常运行", "已废弃"]
+    rows: list[dict[str, Any]] = []
+    for index in range(1, 43):
+        name, facility_type = catalog[(index * 5 + 3) % len(catalog)]
+        road, stake = sections[(index * 3 + 1) % len(sections)]
+        if facility_type == "照明类":
+            unit = "照明设施养护中心"
+        elif road == "环城高架":
+            unit = "桥隧养护所"
+        elif index % 2:
+            unit = "市政养护一公司"
+        else:
+            unit = "市政养护二公司"
+        status = statuses[(index * 3 + 2) % len(statuses)]
+        rows.append({
+            "id": index,
+            "status": status,
+            "pending": status != "已废弃",
+            "abnormal": status in {"限制通行", "封闭维修"},
+            "设施编号": f"FACI-{index:04d}",
+            "设施名称": name,
+            "设施类型": facility_type,
+            "所在路段": f"{road} {stake}",
+            "管养单位": unit,
+            "建设年代": str(2006 + (index * 7) % 18),
+            "设计等级": grades[(index + 1) % len(grades)],
+            "设施状态": status,
+        })
+    return rows
+
+
 SEED_ROWS: dict[str, list[dict[str, Any]]] = {
-    "facility": [{'id': 1,
-  'status': '正常运行',
-  'pending': True,
-  'abnormal': False,
-  '设施编号': 'FACI-0001',
-  '设施名称': '设施台账样例1',
-  '设施类型': '设施台账样例1',
-  '所在路段': '设施台账样例1',
-  '管养单位': '设施台账样例1',
-  '建设年代': '设施台账样例1',
-  '设计等级': '设施台账样例1',
-  '设施状态': '设施台账样例1'},
- {'id': 2,
-  'status': '限制通行',
-  'pending': True,
-  'abnormal': True,
-  '设施编号': 'FACI-0002',
-  '设施名称': '设施台账样例2',
-  '设施类型': '设施台账样例2',
-  '所在路段': '设施台账样例2',
-  '管养单位': '设施台账样例2',
-  '建设年代': '设施台账样例2',
-  '设计等级': '设施台账样例2',
-  '设施状态': '设施台账样例2'},
- {'id': 3,
-  'status': '封闭维修',
-  'pending': False,
-  'abnormal': False,
-  '设施编号': 'FACI-0003',
-  '设施名称': '设施台账样例3',
-  '设施类型': '设施台账样例3',
-  '所在路段': '设施台账样例3',
-  '管养单位': '设施台账样例3',
-  '建设年代': '设施台账样例3',
-  '设计等级': '设施台账样例3',
-  '设施状态': '设施台账样例3'}],
+    "facility": _build_facility_rows(),
     "bridge": [{'id': 1,
   'status': '一类',
   'pending': True,

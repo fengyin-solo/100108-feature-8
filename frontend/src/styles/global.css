@@ -31,5 +31,29 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
 .btn.ghost { background: transparent; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
-.page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.page-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+.pager { display: flex; align-items: center; gap: 8px; }
+.pager-size select { margin: 0 4px; }
+.pager-info { min-width: 72px; text-align: center; }
+.pager .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable:hover { background: #f1f5f9; }
+.sort-mark { color: var(--brand); font-size: 11px; margin-left: 2px; }
+.group-row { background: #f8fafc; cursor: pointer; }
+.group-row td { padding: 8px 10px; }
+.group-toggle { display: inline-block; width: 16px; color: var(--brand); }
+.group-meta { color: var(--muted); font-size: 12px; margin-left: 8px; }
+.group-hint { float: right; color: var(--brand); font-size: 12px; }
+.child-row td:first-child { padding-left: 26px; }
+.locate-link { margin-left: 6px; font-size: 12px; }
+.status-tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; background: #eef2f6; color: #475569; }
+.status-tag[data-status='正常运行'] { background: #e7f6ec; color: #18794e; }
+.status-tag[data-status='限制通行'] { background: #fdf3e3; color: #b54708; }
+.status-tag[data-status='封闭维修'] { background: #fdecea; color: #b42318; }
+.status-tag[data-status='已废弃'] { background: #eceff3; color: #64748b; }
+.detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 0 0 12px; }
+.detail-item dt { font-size: 12px; color: var(--muted); }
+.detail-item dd { margin: 2px 0 0; font-size: 14px; }
+.detail-actions { display: flex; gap: 8px; }
+.action-message { color: var(--brand); font-size: 13px; }
