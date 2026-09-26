@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Dashboard from '@/views/Dashboard.vue'
 const Facility = () => import('@/views/facility/index.vue')
+const FacilityDetail = () => import('@/views/facility/detail.vue')
 const Bridge = () => import('@/views/bridge/index.vue')
 const Tunnel = () => import('@/views/tunnel/index.vue')
 const Pavement = () => import('@/views/pavement/index.vue')
@@ -27,6 +28,7 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'dashboard', component: Dashboard },
     { path: '/facility', name: 'facility', component: Facility },
+    { path: '/facility/:id', name: 'facility-detail', component: FacilityDetail },
     { path: '/bridge', name: 'bridge', component: Bridge },
     { path: '/tunnel', name: 'tunnel', component: Tunnel },
     { path: '/pavement', name: 'pavement', component: Pavement },
